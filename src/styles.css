@@ -62,7 +62,8 @@ a {
 }
 
 header.hero {
-  padding: 72px 0 40px;
+  padding-top: 72px;
+  padding-bottom: 40px;
 }
 
 .eyebrow {

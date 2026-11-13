@@ -42,14 +42,15 @@ export function FlashSaleDemo() {
         </button>
       </div>
 
-      <svg viewBox="0 0 400 120" width="100%" height="140" role="img" aria-label="units sold over time">
-        <line x1="0" x2="400" y1={120 - (stock / peak) * 110} y2={120 - (stock / peak) * 110} stroke="currentColor" strokeDasharray="4 4" opacity="0.4" />
+      <svg viewBox="0 0 400 120" preserveAspectRatio="none" width="100%" height="140" role="img" aria-label="units sold over time">
+        <line x1="0" x2="400" y1={120 - (stock / peak) * 110} y2={120 - (stock / peak) * 110} stroke="currentColor" strokeDasharray="4 4" opacity="0.4" vectorEffect="non-scaling-stroke" />
         <polyline
           fill="none"
           stroke={result.oversold > 0 ? 'var(--bad)' : 'var(--ok)'}
           strokeWidth="2.5"
-          points={result.timeline
-            .map((sold, i) => `${(i / Math.max(1, result.timeline.length - 1)) * 400},${120 - (sold / peak) * 110}`)
+          vectorEffect="non-scaling-stroke"
+          points={[0, ...result.timeline]
+            .map((sold, i, all) => `${(i / Math.max(1, all.length - 1)) * 400},${120 - (sold / peak) * 110}`)
             .join(' ')}
         />
       </svg>
