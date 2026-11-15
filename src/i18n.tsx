@@ -11,6 +11,8 @@ const en = {
   lead:
     'Senior backend engineer focused on systems that must stay correct under concurrency, retries and partial failure. Six projects, each with its decisions written down, tests that prove them, and numbers that were actually measured.',
   seeProjects: 'See the projects ↓',
+  themeToDark: 'Switch to dark theme',
+  themeToLight: 'Switch to light theme',
   navLabel: 'Projects',
   flow: 'Flow',
   problemsSolved: 'Problems solved',
@@ -115,6 +117,8 @@ const pt: Strings = {
   lead:
     'Engenheiro backend sênior focado em sistemas que precisam continuar corretos sob concorrência, retentativas e falhas parciais. Seis projetos, cada um com as decisões documentadas, testes que as comprovam e números realmente medidos.',
   seeProjects: 'Ver os projetos ↓',
+  themeToDark: 'Mudar para tema escuro',
+  themeToLight: 'Mudar para tema claro',
   navLabel: 'Projetos',
   flow: 'Fluxo',
   problemsSolved: 'Problemas resolvidos',

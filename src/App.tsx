@@ -7,6 +7,7 @@ import { SagaDemo } from './demos/SagaDemo';
 import { SloDemo } from './demos/SloDemo';
 import { StranglerDemo } from './demos/StranglerDemo';
 import { LangSwitch, useLang, useT } from './i18n';
+import { ThemeToggle } from './theme';
 
 const DEMOS: Record<DemoId, ComponentType> = {
   ledger: LedgerDemo,
@@ -26,7 +27,10 @@ export function App() {
       <header className="hero wrap">
         <div className="hero-top">
           <div className="eyebrow">{t.eyebrow}</div>
-          <LangSwitch />
+          <div className="toolbar">
+            <ThemeToggle />
+            <LangSwitch />
+          </div>
         </div>
         <h1>Filipe Campos</h1>
         <p className="lead">{t.lead}</p>
