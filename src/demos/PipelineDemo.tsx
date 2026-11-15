@@ -1,17 +1,28 @@
 import { useRef, useState } from 'react';
+import { Strings, useT } from '../i18n';
 import { DocKind, DocTrace, traceDocument } from '../sim/pipeline';
 
-const ACTIONS: { kind: DocKind; label: string }[] = [
-  { kind: 'valid', label: 'upload valid CSV' },
-  { kind: 'duplicate', label: 'S3 delivers same event twice' },
-  { kind: 'spoofed', label: 'upload .exe renamed to .pdf' },
-  { kind: 'poison', label: 'upload corrupt PDF' },
-];
+const ACTIONS: DocKind[] = ['valid', 'duplicate', 'spoofed', 'poison'];
+
+function noteFor(trace: DocTrace, t: Strings): string {
+  const notes = t.pipeline.notes;
+  switch (trace.status) {
+    case 'PROCESSED':
+      return trace.kind === 'duplicate' ? notes.first : notes.processed;
+    case 'DEDUPLICATED':
+      return notes.deduplicated;
+    case 'REJECTED':
+      return notes.rejected;
+    case 'DLQ':
+      return notes.dlq;
+  }
+}
 
 export function PipelineDemo() {
   const processed = useRef(new Set<string>());
   const counter = useRef(0);
   const [traces, setTraces] = useState<DocTrace[]>([]);
+  const t = useT();
 
   function send(kind: DocKind) {
     counter.current += 1;
@@ -26,17 +37,17 @@ export function PipelineDemo() {
   return (
     <div className="demo">
       <div className="demo-title">
-        <strong>Try it: throw documents at the pipeline</strong>
-        <span className="badge">simulated in your browser</span>
+        <strong>{t.pipeline.title}</strong>
+        <span className="badge">{t.simulated}</span>
       </div>
       <div className="controls">
-        {ACTIONS.map((action) => (
-          <button key={action.kind} className="btn" onClick={() => send(action.kind)}>
-            {action.label}
+        {ACTIONS.map((kind) => (
+          <button key={kind} className="btn" onClick={() => send(kind)}>
+            {t.pipeline.actions[kind]}
           </button>
         ))}
       </div>
-      {traces.length === 0 && <p className="note">Pick an action above.</p>}
+      {traces.length === 0 && <p className="note">{t.pipeline.empty}</p>}
       {traces.map((trace, i) => (
         <div key={`${trace.id}-${i}`} style={{ marginBottom: 14 }}>
           <div style={{ marginBottom: 4 }}>
@@ -53,7 +64,7 @@ export function PipelineDemo() {
               </span>
             ))}
           </div>
-          <div className="note">{trace.note}</div>
+          <div className="note">{noteFor(trace, t)}</div>
         </div>
       ))}
     </div>

@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useT } from '../i18n';
 import { sloReport } from '../sim/slo';
 
 const PRESETS = [99, 99.5, 99.9, 99.95, 99.99];
@@ -6,12 +7,13 @@ const PRESETS = [99, 99.5, 99.9, 99.95, 99.99];
 export function SloDemo() {
   const [target, setTarget] = useState(99.9);
   const report = useMemo(() => sloReport(target), [target]);
+  const t = useT();
 
   return (
     <div className="demo">
       <div className="demo-title">
-        <strong>Try it: SLO burn-rate alert thresholds</strong>
-        <span className="badge">same math as the repo's slo-calc</span>
+        <strong>{t.slo.title}</strong>
+        <span className="badge">{t.slo.badge}</span>
       </div>
       <div className="controls">
         {PRESETS.map((preset) => (
@@ -21,17 +23,15 @@ export function SloDemo() {
         ))}
       </div>
       <p>
-        30-day error budget: <strong>{(report.errorBudget * 100).toFixed(3)}%</strong> of requests ≈{' '}
-        <strong>{formatMinutes(report.allowedDowntimeMinutes)}</strong> of full downtime
+        {t.slo.budget}: <strong>{(report.errorBudget * 100).toFixed(3)}%</strong> {t.slo.ofRequests}{' '}
+        <strong>{formatMinutes(report.allowedDowntimeMinutes)}</strong> {t.slo.downtime}
       </p>
       <table className="data">
         <thead>
           <tr>
-            <th>alert</th>
-            <th>windows</th>
-            <th>burn rate</th>
-            <th>budget spent</th>
-            <th>error rate threshold</th>
+            {t.slo.cols.map((col) => (
+              <th key={col}>{col}</th>
+            ))}
           </tr>
         </thead>
         <tbody>
@@ -50,10 +50,7 @@ export function SloDemo() {
           ))}
         </tbody>
       </table>
-      <p className="note">
-        Both windows must breach (CloudWatch composite alarm): the long window proves it matters, the short one makes
-        the alert reset quickly once fixed.
-      </p>
+      <p className="note">{t.slo.note}</p>
     </div>
   );
 }

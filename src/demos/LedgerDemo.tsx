@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useT } from '../i18n';
 import { simulatePurchases, Strategy, validateTransaction } from '../sim/ledger';
 
 const DEFAULT_ENTRIES = [
@@ -11,6 +12,7 @@ export function LedgerDemo() {
   const [entries, setEntries] = useState(DEFAULT_ENTRIES);
   const [strategy, setStrategy] = useState<Strategy>('locked');
   const [seed, setSeed] = useState(7);
+  const t = useT();
 
   const validation = useMemo(
     () => validateTransaction(entries.map((e) => ({ account: e.account, amount: Number(e.amount) }))),
@@ -21,8 +23,8 @@ export function LedgerDemo() {
   return (
     <div className="demo">
       <div className="demo-title">
-        <strong>Try it: post a transaction, then race 50 buyers</strong>
-        <span className="badge">simulated in your browser</span>
+        <strong>{t.ledger.title}</strong>
+        <span className="badge">{t.simulated}</span>
       </div>
 
       <div className="grid-2">
@@ -30,8 +32,8 @@ export function LedgerDemo() {
           <table className="data">
             <thead>
               <tr>
-                <th>account</th>
-                <th>amount (cents)</th>
+                <th>{t.ledger.account}</th>
+                <th>{t.ledger.amount}</th>
               </tr>
             </thead>
             <tbody>
@@ -54,15 +56,15 @@ export function LedgerDemo() {
           </table>
           <p>
             {validation.ok ? (
-              <span className="pill-ok">201 Created · balanced</span>
+              <span className="pill-ok">{t.ledger.created}</span>
             ) : (
-              <span className="pill-bad">422 · {validation.reason}</span>
+              <span className="pill-bad">
+                422 · {t.ledger.reasons[validation.code]}
+                {validation.code === 'unbalanced' ? ` ${validation.total}` : ''}
+              </span>
             )}
           </p>
-          <p className="note">
-            Debits must equal credits. In the real service a deferred Postgres trigger enforces this even if
-            application code is wrong.
-          </p>
+          <p className="note">{t.ledger.invariantNote}</p>
         </div>
 
         <div>
@@ -74,10 +76,10 @@ export function LedgerDemo() {
               FOR UPDATE (ordered)
             </button>
             <button className="btn" onClick={() => setSeed((s) => s + 1)}>
-              ↻ rerun
+              {t.rerun}
             </button>
           </div>
-          <p className="note">Wallet balance 1,000 · 50 concurrent purchases of 100</p>
+          <p className="note">{t.ledger.setup}</p>
           <div className="cells" aria-label="purchase outcomes">
             {run.events.map((event) => (
               <div
@@ -88,13 +90,12 @@ export function LedgerDemo() {
             ))}
           </div>
           <p>
-            committed <strong>{run.committed}</strong> · rejected <strong>{run.rejected}</strong> · final balance{' '}
+            {t.ledger.committed} <strong>{run.committed}</strong> · {t.ledger.rejected} <strong>{run.rejected}</strong> ·{' '}
+            {t.ledger.finalBalance}{' '}
             <strong className={run.finalBalance < 0 ? 'bad' : 'ok'}>{run.finalBalance}</strong>
           </p>
           <p className="note">
-            {strategy === 'naive'
-              ? 'Requests read a stale balance before others write: overdraft. Red cells moved money that did not exist.'
-              : 'Row locks serialize check + write per account: exactly 10 succeed, balance never negative. Same as the Testcontainers test in the repo.'}
+            {strategy === 'naive' ? t.ledger.naiveNote : t.ledger.lockedNote}
           </p>
         </div>
       </div>

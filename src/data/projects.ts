@@ -19,6 +19,8 @@ export interface Project {
   honestGaps: string[];
 }
 
+import { projectsPt } from './projects.pt';
+
 const GITHUB = 'https://github.com/filipercampos';
 
 export const projects: Project[] = [
@@ -156,3 +158,8 @@ export const projects: Project[] = [
     honestGaps: ['Per-tenant write freeze is a manual step', 'Admin API uses a shared token'],
   },
 ];
+
+/** Projects with text in the requested language. */
+export function localizedProjects(lang: 'en' | 'pt'): Project[] {
+  return lang === 'en' ? projects : projects.map((project) => ({ ...project, ...projectsPt[project.id] }));
+}

@@ -6,17 +6,21 @@ export interface Entry {
   amount: number;
 }
 
-export type ValidationResult = { ok: true } | { ok: false; reason: string };
+export type ValidationCode = 'legs' | 'integers' | 'zero' | 'unbalanced';
+
+export type ValidationResult =
+  | { ok: true }
+  | { ok: false; code: ValidationCode; reason: string; total?: number };
 
 /** Same invariant as ledger-service: at least two legs, no zero legs, sum = 0. */
 export function validateTransaction(entries: Entry[]): ValidationResult {
-  if (entries.length < 2) return { ok: false, reason: 'A transaction needs at least two entries' };
+  if (entries.length < 2) return { ok: false, code: 'legs', reason: 'A transaction needs at least two entries' };
   if (entries.some((e) => !Number.isInteger(e.amount))) {
-    return { ok: false, reason: 'Amounts must be integers in minor units (no floats)' };
+    return { ok: false, code: 'integers', reason: 'Amounts must be integers in minor units (no floats)' };
   }
-  if (entries.some((e) => e.amount === 0)) return { ok: false, reason: 'Zero-amount entries are not allowed' };
+  if (entries.some((e) => e.amount === 0)) return { ok: false, code: 'zero', reason: 'Zero-amount entries are not allowed' };
   const total = entries.reduce((sum, e) => sum + e.amount, 0);
-  if (total !== 0) return { ok: false, reason: `Unbalanced: off by ${total}` };
+  if (total !== 0) return { ok: false, code: 'unbalanced', reason: `Unbalanced: off by ${total}`, total };
   return { ok: true };
 }
 

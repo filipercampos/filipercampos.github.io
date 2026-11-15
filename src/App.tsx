@@ -1,11 +1,12 @@
 import type { ComponentType } from 'react';
-import { DemoId, Project, projects } from './data/projects';
+import { DemoId, localizedProjects, Project } from './data/projects';
 import { FlashSaleDemo } from './demos/FlashSaleDemo';
 import { LedgerDemo } from './demos/LedgerDemo';
 import { PipelineDemo } from './demos/PipelineDemo';
 import { SagaDemo } from './demos/SagaDemo';
 import { SloDemo } from './demos/SloDemo';
 import { StranglerDemo } from './demos/StranglerDemo';
+import { LangSwitch, useLang, useT } from './i18n';
 
 const DEMOS: Record<DemoId, ComponentType> = {
   ledger: LedgerDemo,
@@ -17,27 +18,29 @@ const DEMOS: Record<DemoId, ComponentType> = {
 };
 
 export function App() {
+  const { lang } = useLang();
+  const t = useT();
+  const projects = localizedProjects(lang);
   return (
     <>
       <header className="hero wrap">
-        <div className="eyebrow">// backend · distributed systems · aws</div>
+        <div className="hero-top">
+          <div className="eyebrow">{t.eyebrow}</div>
+          <LangSwitch />
+        </div>
         <h1>Filipe Campos</h1>
-        <p className="lead">
-          Senior backend engineer focused on systems that must stay correct under concurrency, retries and partial
-          failure. Six projects, each with its decisions written down, tests that prove them, and numbers that were
-          actually measured.
-        </p>
+        <p className="lead">{t.lead}</p>
         <div className="links">
           <a className="btn primary" href="https://github.com/filipercampos">
             GitHub
           </a>
           <a className="btn" href="#ledger">
-            See the projects ↓
+            {t.seeProjects}
           </a>
         </div>
       </header>
 
-      <nav className="toc" aria-label="Projects">
+      <nav className="toc" aria-label={t.navLabel}>
         <div className="wrap">
           {projects.map((project) => (
             <a key={project.id} href={`#${project.id}`}>
@@ -53,16 +56,14 @@ export function App() {
         ))}
       </main>
 
-      <footer className="wrap">
-        Demos run entirely in your browser with simplified models of each system; the real implementations, tests,
-        ADRs and IaC are in the linked repositories. Metrics come from local runs described in each repo.
-      </footer>
+      <footer className="wrap">{t.footer}</footer>
     </>
   );
 }
 
 function ProjectSection({ project }: { project: Project }) {
   const Demo = DEMOS[project.id];
+  const t = useT();
   return (
     <section id={project.id} className="project">
       <div className="meta">{project.period}</div>
@@ -76,7 +77,7 @@ function ProjectSection({ project }: { project: Project }) {
         ))}
       </div>
 
-      <h3>Flow</h3>
+      <h3>{t.flow}</h3>
       <div className="flow">
         {project.flow.map((node, i) => (
           <span key={node} style={{ display: 'contents' }}>
@@ -88,7 +89,7 @@ function ProjectSection({ project }: { project: Project }) {
 
       <div className="grid-2">
         <div>
-          <h3>Problems solved</h3>
+          <h3>{t.problemsSolved}</h3>
           <table className="pt">
             <tbody>
               {project.problems.map((row) => (
@@ -101,7 +102,7 @@ function ProjectSection({ project }: { project: Project }) {
           </table>
         </div>
         <div>
-          <h3>Measured</h3>
+          <h3>{t.measured}</h3>
           <div className="metrics">
             {project.metrics.map((metric) => (
               <div key={metric.label} className="metric">
@@ -111,14 +112,14 @@ function ProjectSection({ project }: { project: Project }) {
             ))}
           </div>
           <p className="note">{project.metricsNote}</p>
-          <h3>Known gaps</h3>
+          <h3>{t.knownGaps}</h3>
           <ul className="gaps">
             {project.honestGaps.map((gap) => (
               <li key={gap}>{gap}</li>
             ))}
           </ul>
           <p>
-            <a href={project.repo}>Code, ADRs and runbook →</a>
+            <a href={project.repo}>{t.codeLink}</a>
           </p>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useT } from '../i18n';
 import { bucketOf, distribution, route } from '../sim/strangler';
 
 const CUSTOMERS = Array.from({ length: 5000 }, (_, i) => `cust-${i + 1}`);
@@ -8,6 +9,7 @@ export function StranglerDemo() {
   const [killSwitch, setKillSwitch] = useState(false);
   const [customer, setCustomer] = useState('cust-42');
   const [pilot, setPilot] = useState(true);
+  const t = useT();
 
   const config = useMemo(
     () => ({ rolloutPercent: percent, killSwitch, overrides: new Set(pilot ? ['cust-7'] : []) }),
@@ -19,19 +21,19 @@ export function StranglerDemo() {
   return (
     <div className="demo">
       <div className="demo-title">
-        <strong>Try it: shift traffic from legacy to modern</strong>
-        <span className="badge">simulated in your browser</span>
+        <strong>{t.strangler.title}</strong>
+        <span className="badge">{t.simulated}</span>
       </div>
       <div className="controls">
         <label>
-          rollout {percent}%
+          {t.strangler.rollout} {percent}%
           <input type="range" min={0} max={100} value={percent} onChange={(e) => setPercent(+e.target.value)} />
         </label>
         <button className="btn" aria-pressed={killSwitch} onClick={() => setKillSwitch((k) => !k)}>
-          {killSwitch ? 'kill switch ON' : 'kill switch'}
+          {killSwitch ? t.strangler.killOn : t.strangler.kill}
         </button>
         <button className="btn" aria-pressed={pilot} onClick={() => setPilot((p) => !p)}>
-          pilot tenant cust-7
+          {t.strangler.pilot}
         </button>
       </div>
 
@@ -46,19 +48,15 @@ export function StranglerDemo() {
 
       <div className="controls" style={{ marginTop: 14 }}>
         <label>
-          look up customer
+          {t.strangler.lookup}
           <input type="text" value={customer} onChange={(e) => setCustomer(e.target.value)} />
         </label>
         <span>
-          bucket <code>{bucketOf(customer)}</code> →{' '}
+          {t.strangler.bucket} <code>{bucketOf(customer)}</code> →{' '}
           <span className={route(customer, config) === 'modern' ? 'pill-ok' : 'pill-warn'}>{route(customer, config)}</span>
         </span>
       </div>
-      <p className="note">
-        Sticky hashing: a customer's bucket never changes, so raising the percentage only ever moves customers forward
-        and nobody flips back and forth. The kill switch is an instant rollback. Meanwhile shadow reads compare both
-        sides; the local run compared 6,000 reads with 0 mismatches.
-      </p>
+      <p className="note">{t.strangler.note}</p>
     </div>
   );
 }
