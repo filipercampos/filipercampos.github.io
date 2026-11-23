@@ -9,6 +9,12 @@ import { StranglerDemo } from './demos/StranglerDemo';
 import { LangSwitch, useLang, useT } from './i18n';
 import { ThemeToggle } from './theme';
 
+const CONTACT = {
+  github: 'https://github.com/filipercampos',
+  linkedin: 'https://www.linkedin.com/in/filipercampos',
+  email: 'filipecampos123@hotmail.com',
+};
+
 const DEMOS: Record<DemoId, ComponentType> = {
   ledger: LedgerDemo,
   platform: SloDemo,
@@ -35,8 +41,14 @@ export function App() {
         <h1>Filipe Campos</h1>
         <p className="lead">{t.lead}</p>
         <div className="links">
-          <a className="btn primary" href="https://github.com/filipercampos">
+          <a className="btn primary" href={CONTACT.github}>
             GitHub
+          </a>
+          <a className="btn" href={CONTACT.linkedin}>
+            LinkedIn
+          </a>
+          <a className="btn" href={`mailto:${CONTACT.email}`}>
+            {t.email}
           </a>
           <a className="btn" href="#ledger">
             {t.seeProjects}
@@ -60,7 +72,13 @@ export function App() {
         ))}
       </main>
 
-      <footer className="wrap">{t.footer}</footer>
+      <footer className="wrap">
+        <p>{t.footer}</p>
+        <p className="contact">
+          <a href={CONTACT.github}>GitHub</a> · <a href={CONTACT.linkedin}>LinkedIn</a> ·{' '}
+          <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+        </p>
+      </footer>
     </>
   );
 }

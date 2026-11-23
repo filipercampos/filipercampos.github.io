@@ -539,6 +539,11 @@ input[type='range'] {
   background: var(--muted);
 }
 
+/* Lets wide tables scroll inside their card instead of widening the page on phones. */
+.table-scroll {
+  overflow-x: auto;
+}
+
 table.data {
   width: 100%;
   border-collapse: collapse;
@@ -561,6 +566,10 @@ footer {
   padding: 40px 0 64px;
   color: var(--muted);
   font-size: 13px;
+}
+
+footer p {
+  margin: 0 0 8px;
 }
 
 .sr-only {

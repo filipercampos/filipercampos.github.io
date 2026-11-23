@@ -6,11 +6,12 @@ const STORAGE_KEY = 'lang';
 
 const en = {
   htmlLang: 'en',
-  title: 'Filipe Campos · Backend Architecture',
-  eyebrow: '// backend · distributed systems · aws',
+  title: 'Filipe Campos · Solutions Architect',
+  eyebrow: '// solutions architect · web development · aws',
   lead:
-    'Senior backend engineer focused on systems that must stay correct under concurrency, retries and partial failure. Six projects, each with its decisions written down, tests that prove them, and numbers that were actually measured.',
+    'Solutions architect, currently in the mobility sector, with a background as a web development specialist. I focus on systems that must stay correct under concurrency, retries and partial failure. Six projects, each with its decisions written down, tests that prove them, and numbers that were actually measured.',
   seeProjects: 'See the projects ↓',
+  email: 'Email',
   themeToDark: 'Switch to dark theme',
   themeToLight: 'Switch to light theme',
   navLabel: 'Projects',
@@ -112,11 +113,12 @@ export type Strings = typeof en;
 
 const pt: Strings = {
   htmlLang: 'pt-BR',
-  title: 'Filipe Campos · Arquitetura Backend',
-  eyebrow: '// backend · sistemas distribuídos · aws',
+  title: 'Filipe Campos · Arquiteto de Soluções',
+  eyebrow: '// arquiteto de soluções · desenvolvimento web · aws',
   lead:
-    'Engenheiro backend sênior focado em sistemas que precisam continuar corretos sob concorrência, retentativas e falhas parciais. Seis projetos, cada um com as decisões documentadas, testes que as comprovam e números realmente medidos.',
+    'Arquiteto de soluções, hoje no segmento de mobilidade, com trajetória de especialista em desenvolvimento web. Foco em sistemas que precisam continuar corretos sob concorrência, retentativas e falhas parciais. Seis projetos, cada um com as decisões documentadas, testes que as comprovam e números realmente medidos.',
   seeProjects: 'Ver os projetos ↓',
+  email: 'E-mail',
   themeToDark: 'Mudar para tema escuro',
   themeToLight: 'Mudar para tema claro',
   navLabel: 'Projetos',

@@ -26,30 +26,32 @@ export function SloDemo() {
         {t.slo.budget}: <strong>{(report.errorBudget * 100).toFixed(3)}%</strong> {t.slo.ofRequests}{' '}
         <strong>{formatMinutes(report.allowedDowntimeMinutes)}</strong> {t.slo.downtime}
       </p>
-      <table className="data">
-        <thead>
-          <tr>
-            {t.slo.cols.map((col) => (
-              <th key={col}>{col}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {report.windows.map((w) => (
-            <tr key={w.longWindow}>
-              <td>
-                <span className={w.severity === 'page' ? 'pill-bad' : 'pill-warn'}>{w.severity}</span>
-              </td>
-              <td>
-                {w.longWindow} + {w.shortWindow}
-              </td>
-              <td>{w.burnRate}×</td>
-              <td>{w.budgetConsumed * 100}%</td>
-              <td>{(w.errorRateThreshold * 100).toFixed(3)}%</td>
+      <div className="table-scroll">
+        <table className="data">
+          <thead>
+            <tr>
+              {t.slo.cols.map((col) => (
+                <th key={col}>{col}</th>
+              ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {report.windows.map((w) => (
+              <tr key={w.longWindow}>
+                <td>
+                  <span className={w.severity === 'page' ? 'pill-bad' : 'pill-warn'}>{w.severity}</span>
+                </td>
+                <td>
+                  {w.longWindow} + {w.shortWindow}
+                </td>
+                <td>{w.burnRate}×</td>
+                <td>{w.budgetConsumed * 100}%</td>
+                <td>{(w.errorRateThreshold * 100).toFixed(3)}%</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <p className="note">{t.slo.note}</p>
     </div>
   );
