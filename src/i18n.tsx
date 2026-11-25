@@ -22,6 +22,17 @@ const en = {
   codeLink: 'Code, ADRs and runbook →',
   footer:
     'Demos run entirely in your browser with simplified models of each system; the real implementations, tests, ADRs and IaC are in the linked repositories. Metrics come from local runs described in each repo.',
+  mobile: {
+    nav: 'Mobile',
+    meta: 'Nov 2026 · mobile',
+    title: 'Vehicle Inspection Checklist',
+    tagline:
+      'Pre-trip inspection for light-vehicle fleets in Flutter (web + Android). Body damage is marked on a 3D model of the vehicle being inspected.',
+    body:
+      'The hatchback, SUV and pickup are modelled by script in Blender and pre-rendered as a 36-frame orbit plus a per-pixel part map, so the app gets photoreal 3D with exact hit testing and no 3D engine at runtime. Runs on mock data: nothing to install or configure to try it.',
+    imageAlt: 'Blender render of the pickup used in the damage map',
+    codeLink: 'Code and design decisions →',
+  },
   simulated: 'simulated in your browser',
   rerun: '↻ rerun',
   ledger: {
@@ -129,6 +140,17 @@ const pt: Strings = {
   codeLink: 'Código, ADRs e runbook →',
   footer:
     'As demos rodam inteiramente no seu navegador com modelos simplificados de cada sistema; as implementações reais, testes, ADRs e IaC estão nos repositórios. As métricas vêm de execuções locais descritas em cada repo.',
+  mobile: {
+    nav: 'Mobile',
+    meta: 'Nov 2026 · mobile',
+    title: 'Checklist de Vistoria Veicular',
+    tagline:
+      'Vistoria pré-viagem para frotas de veículos leves em Flutter (web + Android). As avarias são marcadas em um modelo 3D do veículo vistoriado.',
+    body:
+      'O hatch, o SUV e a pickup são modelados por script no Blender e pré-renderizados como uma órbita de 36 quadros mais um mapa de peças por pixel: o app ganha 3D fotorrealista com toque exato na peça e sem motor 3D em tempo de execução. Roda com dados simulados: nada para instalar ou configurar para testar.',
+    imageAlt: 'Render no Blender da pickup usada no mapa de avarias',
+    codeLink: 'Código e decisões de projeto →',
+  },
   simulated: 'simulado no seu navegador',
   rerun: '↻ rodar de novo',
   ledger: {

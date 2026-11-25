@@ -9,6 +9,9 @@ import { StranglerDemo } from './demos/StranglerDemo';
 import { LangSwitch, useLang, useT } from './i18n';
 import { ThemeToggle } from './theme';
 
+const MOBILE_REPO = 'https://github.com/filipercampos/vehicle-inspection-checklist';
+const MOBILE_STACK = ['Flutter', 'Dart', 'Riverpod', 'go_router', 'Blender (Cycles)'];
+
 const CONTACT = {
   github: 'https://github.com/filipercampos',
   linkedin: 'https://www.linkedin.com/in/filipercampos',
@@ -63,6 +66,7 @@ export function App() {
               {project.title}
             </a>
           ))}
+          <a href="#mobile">{t.mobile.nav}</a>
         </div>
       </nav>
 
@@ -70,6 +74,30 @@ export function App() {
         {projects.map((project) => (
           <ProjectSection key={project.id} project={project} />
         ))}
+        <section id="mobile" className="project">
+          <div className="meta">{t.mobile.meta}</div>
+          <h2>{t.mobile.title}</h2>
+          <p className="tagline">{t.mobile.tagline}</p>
+          <div className="chips">
+            {MOBILE_STACK.map((item) => (
+              <span key={item} className="chip">
+                {item}
+              </span>
+            ))}
+          </div>
+          <img
+            className="mobile-shot"
+            src="/vehicle-inspection.webp"
+            alt={t.mobile.imageAlt}
+            width={800}
+            height={420}
+            loading="lazy"
+          />
+          <p>{t.mobile.body}</p>
+          <p>
+            <a href={MOBILE_REPO}>{t.mobile.codeLink}</a>
+          </p>
+        </section>
       </main>
 
       <footer className="wrap">

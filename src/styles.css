@@ -585,3 +585,11 @@ footer p {
   height: 30px;
   line-height: 1;
 }
+
+.mobile-shot {
+  display: block;
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+  margin: 16px 0 8px;
+}

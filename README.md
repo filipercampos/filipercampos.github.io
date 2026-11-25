@@ -1,6 +1,6 @@
 # filipercampos.github.io
 
-Portfolio site for six backend architecture projects, each with an interactive in-browser demo.
+Portfolio site for six backend architecture projects, each with an interactive in-browser demo, plus one Flutter app ([vehicle-inspection-checklist](https://github.com/filipercampos/vehicle-inspection-checklist)).
 
 | Project | Demo |
 |---|---|
