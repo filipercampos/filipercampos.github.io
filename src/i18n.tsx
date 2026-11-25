@@ -31,6 +31,7 @@ const en = {
     body:
       'The hatchback, SUV and pickup are modelled by script in Blender and pre-rendered as a 36-frame orbit plus a per-pixel part map, so the app gets photoreal 3D with exact hit testing and no 3D engine at runtime. Runs on mock data: nothing to install or configure to try it.',
     imageAlt: 'Blender render of the pickup used in the damage map',
+    demoLink: 'Open the live demo ↗',
     codeLink: 'Code and design decisions →',
   },
   simulated: 'simulated in your browser',
@@ -149,6 +150,7 @@ const pt: Strings = {
     body:
       'O hatch, o SUV e a pickup são modelados por script no Blender e pré-renderizados como uma órbita de 36 quadros mais um mapa de peças por pixel: o app ganha 3D fotorrealista com toque exato na peça e sem motor 3D em tempo de execução. Roda com dados simulados: nada para instalar ou configurar para testar.',
     imageAlt: 'Render no Blender da pickup usada no mapa de avarias',
+    demoLink: 'Abrir a demo ao vivo ↗',
     codeLink: 'Código e decisões de projeto →',
   },
   simulated: 'simulado no seu navegador',

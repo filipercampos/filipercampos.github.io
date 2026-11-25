@@ -10,6 +10,7 @@ import { LangSwitch, useLang, useT } from './i18n';
 import { ThemeToggle } from './theme';
 
 const MOBILE_REPO = 'https://github.com/filipercampos/vehicle-inspection-checklist';
+const MOBILE_DEMO = 'https://filipercampos.github.io/vehicle-inspection-checklist/';
 const MOBILE_STACK = ['Flutter', 'Dart', 'Riverpod', 'go_router', 'Blender (Cycles)'];
 
 const CONTACT = {
@@ -95,6 +96,10 @@ export function App() {
           />
           <p>{t.mobile.body}</p>
           <p>
+            <a href={MOBILE_DEMO} target="_blank" rel="noreferrer">
+              {t.mobile.demoLink}
+            </a>
+            {' · '}
             <a href={MOBILE_REPO}>{t.mobile.codeLink}</a>
           </p>
         </section>
